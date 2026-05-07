@@ -16,17 +16,31 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from activities.views import ActivityViewSet
-from teams.views import TeamViewSet
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
+from activities.views import ActivityViewSet, WorkoutViewSet
+from teams.views import TeamViewSet, LeaderboardViewSet
 
 router = DefaultRouter()
 router.register(r'activities', ActivityViewSet)
+router.register(r'workouts', WorkoutViewSet)
 router.register(r'teams', TeamViewSet)
+router.register(r'leaderboard', LeaderboardViewSet)
+
+@api_view(['GET'])
+def api_root(request, format=None):
+    return Response({
+        'activities': reverse('activity-list', request=request, format=format),
+        'workouts': reverse('workout-list', request=request, format=format),
+        'teams': reverse('team-list', request=request, format=format),
+        'leaderboard': reverse('leaderboard-list', request=request, format=format),
+    })
 
 urlpatterns = [
+    path('', api_root, name='api-root'),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api/auth/', include('dj_rest_auth.urls')),
     path('api/auth/registration/', include('dj_rest_auth.registration.urls')),
-]
 ]

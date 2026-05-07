@@ -1,3 +1,12 @@
+from .models import Leaderboard
+
+class LeaderboardSerializer(serializers.ModelSerializer):
+    team = serializers.StringRelatedField()
+    user = serializers.StringRelatedField()
+
+    class Meta:
+        model = Leaderboard
+        fields = '__all__'
 from rest_framework import serializers
 from .models import Team
 
