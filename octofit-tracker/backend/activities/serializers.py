@@ -1,4 +1,6 @@
-from .models import Workout
+
+from rest_framework import serializers
+from .models import Workout, Activity
 
 class WorkoutSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField()
@@ -6,8 +8,6 @@ class WorkoutSerializer(serializers.ModelSerializer):
     class Meta:
         model = Workout
         fields = '__all__'
-from rest_framework import serializers
-from .models import Activity
 
 class ActivitySerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField()

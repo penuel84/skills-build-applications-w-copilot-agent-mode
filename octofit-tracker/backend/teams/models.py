@@ -1,3 +1,7 @@
+
+from django.db import models
+from django.contrib.auth.models import User
+
 class Leaderboard(models.Model):
     team = models.ForeignKey('Team', on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -6,8 +10,6 @@ class Leaderboard(models.Model):
 
     def __str__(self):
         return f"{self.team.name} - {self.user.username} - {self.score}"
-from django.db import models
-from django.contrib.auth.models import User
 
 class Team(models.Model):
     name = models.CharField(max_length=100)
