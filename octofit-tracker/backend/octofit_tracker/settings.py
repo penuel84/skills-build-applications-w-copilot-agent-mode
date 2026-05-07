@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'dj_rest_auth',
     'dj_rest_auth.registration',
     'corsheaders',
+    'djongo',  # MongoDB backend
     'accounts',
     'activities',
     'teams',
@@ -54,7 +55,8 @@ INSTALLED_APPS = [
 SITE_ID = 1
 
 
-# Allow all CORS origins, methods, and headers
+
+# CORS configuration for development (allow all origins, methods, and headers)
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = ['*']
@@ -99,10 +101,13 @@ WSGI_APPLICATION = 'octofit_tracker.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+
+# MongoDB connection using Djongo
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'octofit_db',
+        # Add additional options if needed, e.g. HOST, PORT, USER, PASSWORD
     }
 }
 
